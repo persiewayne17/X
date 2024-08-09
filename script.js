@@ -11,7 +11,6 @@ function toggleForm(formType) {
   }
 }
 
-// Add event listeners to the links
 document
   .getElementById("signup-link")
   .addEventListener("click", () => toggleForm("signup"));
@@ -19,7 +18,7 @@ document
   .getElementById("login-link")
   .addEventListener("click", () => toggleForm("login"));
 document.addEventListener("DOMContentLoaded", function () {
-  // Predefined credentials
+  // credentials
   const credentials = [
     { username: "Wayne", password: "1234" },
     { username: "Benny", password: "4567" },
@@ -34,21 +33,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Login form submission event
   loginForm.addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent the form from submitting the traditional way
+    event.preventDefault();
 
     const enteredUsername = usernameInput.value.trim();
     const enteredPassword = passwordInput.value.trim();
 
-    // Check if the entered credentials match any of the predefined ones
+    // Checking if the entered credentials match
     const user = credentials.find(
       (cred) =>
         cred.username === enteredUsername && cred.password === enteredPassword
     );
 
     if (user) {
-      // Successful login (you can redirect the user or show a success message)
+      // Successful login
       alert("Login successful!");
-      // Example redirect:
       // window.location.href = 'dashboard.html';
     } else {
       // Invalid credentials
