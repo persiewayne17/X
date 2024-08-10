@@ -33,9 +33,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const signupPasswordConfirmInput =
     document.getElementById("signup-password-1");
 
-  // Store the sign-up credentials inside the local storage
-  let storedCredentials =
+  // Initialize existing credentials
+  let storedCredentials = [
+    { username: "Wayne", password: "123" },
+    { username: "Benny", password: "456" },
+    { username: "Emmanuel", password: "789" },
+  ];
+
+  // Merge with credentials from local storage if they exist
+  const localStoredCredentials =
     JSON.parse(localStorage.getItem("storedCredentials")) || [];
+  storedCredentials = storedCredentials.concat(localStoredCredentials);
 
   // Sign-up form submission event
   signupForm.addEventListener("submit", function (event) {
@@ -89,10 +97,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const enteredUsername = usernameInput.value.trim();
     const enteredPassword = passwordInput.value.trim();
-
-    // Retrieve the credentials from localStorage
-    storedCredentials =
-      JSON.parse(localStorage.getItem("storedCredentials")) || [];
 
     // Checking if the entered credentials match any in localStorage
     const user = storedCredentials.find(
