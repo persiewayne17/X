@@ -17,33 +17,85 @@ document
 document
   .getElementById("login-link")
   .addEventListener("click", () => toggleForm("login"));
-document.addEventListener("DOMContentLoaded", function () {
-  // credentials
-  const credentials = [
-    { username: "Wayne", password: "1234" },
-    { username: "Benny", password: "4567" },
-    { username: "Emmanuel", password: "8910" },
-  ];
 
+document.addEventListener("DOMContentLoaded", function () {
   // Form elements for login
   const loginForm = document.getElementById("login-form");
   const usernameInput = document.getElementById("login-username");
   const passwordInput = document.getElementById("login-password");
   const errorMessage = document.getElementById("error-message");
 
-  //Form element for sign-up
-  const signupInput = document.getElementById("signup-username");
-  const signupEmail = document.getElementById("signup-email");
-  const signupPassword = document.getElementById("signup-password");
+  // Form elements for sign-up
+  const signupForm = document.getElementById("signup-form");
+  const signupUsernameInput = document.getElementById("signup-username");
+  const signupEmailInput = document.getElementById("signup-email");
+  const signupPasswordInput = document.getElementById("signup-password");
+  const signupPasswordConfirmInput =
+    document.getElementById("signup-password-1");
+
+  // Store the sign-up credentials inside the local storage
+  let storedCredentials =
+    JSON.parse(localStorage.getItem("storedCredentials")) || [];
+
+  // Sign-up form submission event
+  signupForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const username = signupUsernameInput.value.trim();
+    const email = signupEmailInput.value.trim();
+    const password = signupPasswordInput.value.trim();
+    const confirmPassword = signupPasswordConfirmInput.value.trim();
+
+    // Validate that passwords match
+    if (password !== confirmPassword) {
+      errorMessage.textContent = "Passwords do not match. Please try again.";
+      errorMessage.style.display = "block";
+      return;
+    }
+
+    // Check if the username already exists
+    const existingUser = storedCredentials.find(
+      (cred) => cred.username === username
+    );
+    if (existingUser) {
+      errorMessage.textContent =
+        "Username already exists. Please choose another one.";
+      errorMessage.style.display = "block";
+      return;
+    }
+
+    // Save the new credentials to localStorage
+    storedCredentials.push({ username: username, password: password });
+    localStorage.setItem(
+      "storedCredentials",
+      JSON.stringify(storedCredentials)
+    );
+
+    alert("Registration successful! You can now log in.");
+
+    // Clear the form fields after submission
+    signupUsernameInput.value = "";
+    signupEmailInput.value = "";
+    signupPasswordInput.value = "";
+    signupPasswordConfirmInput.value = "";
+
+    // Switch to the login form after successful registration
+    toggleForm("login");
+  });
 
   // Login form submission event
   loginForm.addEventListener("submit", function (event) {
     event.preventDefault();
+
     const enteredUsername = usernameInput.value.trim();
     const enteredPassword = passwordInput.value.trim();
 
-    // Checking if the entered credentials match
-    const user = credentials.find(
+    // Retrieve the credentials from localStorage
+    storedCredentials =
+      JSON.parse(localStorage.getItem("storedCredentials")) || [];
+
+    // Checking if the entered credentials match any in localStorage
+    const user = storedCredentials.find(
       (cred) =>
         cred.username === enteredUsername && cred.password === enteredPassword
     );

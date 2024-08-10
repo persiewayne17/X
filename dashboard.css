@@ -7,39 +7,82 @@
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
+  background-color: #f3f4f6;
 }
 
 header {
-  background: #333;
+  background: #6200ea; /* Vibrant purple */
   color: #fff;
+  padding: 1rem;
 }
-.logo {
-  width: 100px;
-  height: 4vh;
-}
+
 .header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: 100px;
+  height: auto;
+  max-height: 50px;
+  object-fit: contain;
 }
 
 .nav-toggle {
-  display: none;
+  display: none; /* Hidden on larger screens */
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 2rem;
+  height: 2rem;
+  position: relative;
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  content: "";
+  position: absolute;
+  background: #fff;
+  width: 100%;
+  height: 3px;
+  left: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburger {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hamburger::before {
+  top: -8px;
+}
+
+.hamburger::after {
+  bottom: -8px;
+}
+
+.nav {
+  display: flex; /* Visible by default on larger screens */
 }
 
 .nav__list {
   display: flex;
   list-style: none;
+  margin-left: auto;
 }
 
 .nav__item {
-  margin-left: 1rem;
+  margin-left: 1.5rem;
 }
 
 .nav__link {
@@ -50,64 +93,59 @@ header {
 }
 
 .nav__link:hover {
-  color: #ddd;
+  color: #ffd700; /* Vibrant gold */
 }
 
 main {
   padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
+/* Mobile-specific styles */
 @media (max-width: 768px) {
+  .header-content {
+    flex-wrap: wrap;
+  }
+
   .nav-toggle {
-    display: block;
-    cursor: pointer;
-    border: none;
-    background: transparent;
-    width: 3rem;
-    height: 3rem;
-    position: relative;
-  }
-
-  .hamburger,
-  .hamburger::before,
-  .hamburger::after {
-    content: "";
-    position: absolute;
-    background: #fff;
-    width: 100%;
-    height: 3px;
-    left: 0;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .hamburger {
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  .hamburger::before {
-    top: -10px;
-  }
-  .hamburger::after {
-    bottom: -10px;
+    display: block; /* Show the nav-toggle on smaller screens */
   }
 
   .nav {
+    display: none; /* Hide the nav by default on smaller screens */
+    width: 100%;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease-out;
   }
 
   .nav--visible {
-    max-height: 500px; /* Adjust this value based on your menu items */
+    display: block; /* Show the nav when toggled */
+    max-height: 500px;
   }
 
   .nav__list {
     flex-direction: column;
-    padding: 1rem;
+    padding: 1rem 0;
   }
 
   .nav__item {
     margin: 0.5rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo img {
+    width: 80px;
+    max-height: 40px;
+  }
+
+  .nav__list {
+    justify-content: center;
+  }
+
+  .nav__link {
+    font-size: 0.9rem;
   }
 }
