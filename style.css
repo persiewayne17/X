@@ -4,9 +4,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
 }
+
 .logo {
   width: 150px;
   margin: 0px;
@@ -14,13 +17,14 @@ body {
 
 .form-container {
   background-color: #fff;
-  padding: 20px 30px;
+  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
   width: 100%;
+  max-width: 350px;
   text-align: center;
 }
+
 .form-container form {
   display: none;
 }
@@ -34,17 +38,17 @@ form h2 {
   align-items: center;
   justify-content: center;
   gap: 5px;
-  font-size: 24px;
+  font-size: 22px;
   margin-bottom: 20px;
 }
 
 form h2 img {
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,13 +56,13 @@ form h2 img {
 
 .form-group label {
   margin-right: 10px;
-  font-size: 18px;
+  font-size: 16px;
   color: #333;
 }
 
 .form-group input {
-  width: 70%;
-  padding: 10px;
+  width: 100%;
+  padding: 8px;
   font-size: 14px;
   border-radius: 5px;
   border: 1px solid #ccc;
@@ -119,4 +123,134 @@ input[type="email"] {
   margin-right: 10px;
   color: #007bff;
   font-size: 18px;
+}
+
+/* Media Queries */
+
+/* Small tablets and large smartphones (landscape view) */
+@media screen and (min-width: 576px) {
+  .form-container {
+    max-width: 400px;
+    padding: 25px;
+  }
+
+  form h2 {
+    font-size: 24px;
+  }
+
+  form h2 img {
+    height: 35px;
+    width: 35px;
+  }
+
+  .form-group input {
+    padding: 10px;
+  }
+}
+
+/* Tablets and small desktops */
+@media screen and (min-width: 768px) {
+  .form-container {
+    max-width: 450px;
+    padding: 30px;
+  }
+
+  .logo {
+    width: 180px;
+  }
+
+  form h2 {
+    font-size: 26px;
+  }
+
+  form h2 img {
+    height: 40px;
+    width: 40px;
+  }
+
+  .form-group label {
+    font-size: 18px;
+  }
+
+  .form-group input {
+    font-size: 16px;
+  }
+}
+
+/* Large desktops and TVs */
+@media screen and (min-width: 1200px) {
+  .form-container {
+    max-width: 500px;
+    padding: 40px;
+  }
+
+  .logo {
+    width: 200px;
+  }
+
+  form h2 {
+    font-size: 28px;
+  }
+
+  form h2 img {
+    height: 45px;
+    width: 45px;
+  }
+
+  .form-group label {
+    font-size: 20px;
+  }
+
+  .form-group input {
+    font-size: 18px;
+    padding: 12px;
+  }
+
+  .form-group button {
+    font-size: 18px;
+    padding: 12px;
+  }
+
+  .form-footer p {
+    font-size: 16px;
+  }
+}
+
+/* 4K and larger TVs */
+@media screen and (min-width: 2560px) {
+  .form-container {
+    max-width: 600px;
+    padding: 50px;
+  }
+
+  .logo {
+    width: 250px;
+  }
+
+  form h2 {
+    font-size: 32px;
+  }
+
+  form h2 img {
+    height: 50px;
+    width: 50px;
+  }
+
+  .form-group label {
+    font-size: 22px;
+  }
+
+  .form-group input {
+    font-size: 20px;
+    padding: 15px;
+  }
+
+  .form-group button {
+    font-size: 20px;
+    padding: 15px;
+  }
+
+  .form-footer p {
+    font-size: 18px;
+  }
 }

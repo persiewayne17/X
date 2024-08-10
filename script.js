@@ -25,16 +25,20 @@ document.addEventListener("DOMContentLoaded", function () {
     { username: "Emmanuel", password: "8910" },
   ];
 
-  // Form elements
+  // Form elements for login
   const loginForm = document.getElementById("login-form");
   const usernameInput = document.getElementById("login-username");
   const passwordInput = document.getElementById("login-password");
   const errorMessage = document.getElementById("error-message");
 
+  //Form element for sign-up
+  const signupInput = document.getElementById("signup-username");
+  const signupEmail = document.getElementById("signup-email");
+  const signupPassword = document.getElementById("signup-password");
+
   // Login form submission event
   loginForm.addEventListener("submit", function (event) {
     event.preventDefault();
-
     const enteredUsername = usernameInput.value.trim();
     const enteredPassword = passwordInput.value.trim();
 
@@ -46,8 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (user) {
       // Successful login
-      alert("Login successful!");
-      // window.location.href = 'dashboard.html';
+      window.location.href = "dashboard.html";
     } else {
       // Invalid credentials
       errorMessage.textContent =
