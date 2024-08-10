@@ -3,25 +3,31 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
   background-color: #f3f4f6;
 }
-
 header {
-  background: #6200ea; /* Vibrant purple */
+  background: #9c8db1;
   color: #fff;
   padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
 }
 
 .logo {
@@ -37,7 +43,7 @@ header {
 }
 
 .nav-toggle {
-  display: none; /* Hidden on larger screens */
+  display: none;
   cursor: pointer;
   border: none;
   background: transparent;
@@ -55,7 +61,7 @@ header {
   width: 100%;
   height: 3px;
   left: 0;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .hamburger {
@@ -72,7 +78,8 @@ header {
 }
 
 .nav {
-  display: flex; /* Visible by default on larger screens */
+  display: flex;
+  align-items: center;
 }
 
 .nav__list {
@@ -93,7 +100,7 @@ header {
 }
 
 .nav__link:hover {
-  color: #ffd700; /* Vibrant gold */
+  color: #ffd700;
 }
 
 main {
@@ -102,18 +109,62 @@ main {
   margin: 0 auto;
 }
 
-/* Mobile-specific styles */
+.card-container {
+  display: grid;
+  gap: 1.5rem;
+  justify-items: center;
+  align-items: center;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.card p {
+  font-size: 1.1rem;
+}
+
+@media (min-width: 600px) {
+  .card-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 992px) {
+  .card-container {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media (min-width: 1200px) {
+  .card-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
 @media (max-width: 768px) {
   .header-content {
     flex-wrap: wrap;
   }
 
   .nav-toggle {
-    display: block; /* Show the nav-toggle on smaller screens */
+    display: block;
   }
 
   .nav {
-    display: none; /* Hide the nav by default on smaller screens */
+    display: none;
     width: 100%;
     max-height: 0;
     overflow: hidden;
@@ -121,7 +172,7 @@ main {
   }
 
   .nav--visible {
-    display: block; /* Show the nav when toggled */
+    display: block;
     max-height: 500px;
   }
 
@@ -132,6 +183,10 @@ main {
 
   .nav__item {
     margin: 0.5rem 0;
+  }
+
+  .card-container {
+    grid-template-columns: 1fr;
   }
 }
 

@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const signupPasswordConfirmInput =
     document.getElementById("signup-password-1");
 
-  // Initialize existing credentials
+  // existing credentials
   let storedCredentials = [
     { username: "Wayne", password: "123" },
     { username: "Benny", password: "456" },
