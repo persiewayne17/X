@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="dashboard.css" />
     <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <header>
@@ -18,11 +19,13 @@
       </div>
       <nav class="nav">
         <ul class="nav__list">
-          <li class="nav__item"><a href="#" class="nav__link">Home</a></li>
           <li class="nav__item"><a href="#" class="nav__link">About Us</a></li>
           <li class="nav__item"><a href="#" class="nav__link">Services</a></li>
           <li class="nav__item">
             <a href="#" class="nav__link">Contact Us</a>
+          </li>
+          <li class="nav__item">
+            <a href="index.html" class="nav__link">Log-out</a>
           </li>
         </ul>
       </nav>
@@ -30,26 +33,27 @@
 
     <main>
       <h1>Dashboard</h1>
-      <div class="card-container">
-        <div class="card">
-          <h2>Card 1</h2>
-          <p></p>
+      <div class="chart-container">
+        <div class="chart">
+          <canvas id="chart1"></canvas>
         </div>
-        <div class="card">
-          <h2>Card 2</h2>
-          <p></p>
+        <div class="chart">
+          <canvas id="chart2"></canvas>
         </div>
-        <div class="card">
-          <h2>Card 3</h2>
-          <p></p>
+        <div class="chart">
+          <canvas id="chart3"></canvas>
         </div>
-        <div class="card">
-          <h2>Card 4</h2>
-          <p></p>
+        <div class="chart">
+          <canvas id="chart4"></canvas>
+        </div>
+        <div class="chart">
+          <canvas id="chart5"></canvas>
+        </div>
+        <div class="chart">
+          <canvas id="chart6"></canvas>
         </div>
       </div>
     </main>
-
     <script src="dashboard.js"></script>
   </body>
 </html>
