@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="dashboard.css" />
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <div class="logo">
+          <img src="images/logo.png" alt="Logo" class="logo" />
+        </div>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+          <span class="hamburger"></span>
+        </button>
+      </div>
+      <nav class="nav">
+        <ul class="nav__list">
+          <li class="nav__item"><a href="#" class="nav__link">About Us</a></li>
+          <li class="nav__item"><a href="#" class="nav__link">Services</a></li>
+          <li class="nav__item">
+            <a href="#" class="nav__link">Contact Us</a>
+          </li>
+          <li class="nav__item">
+            <a href="index.html" class="nav__link">Log-out</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <h1>Dashboard</h1>
+      <div class="chart-container">
+        <div class="chart">
+          <canvas id="chart1"></canvas>
+        </div>
+        <div class="chart">
+          <canvas id="chart2"></canvas>
+        </div>
+        <div class="chart">
+          <canvas id="chart3"></canvas>
+        </div>
+        <div class="chart">
+          <canvas id="chart4"></canvas>
+        </div>
+        <div class="chart">
+          <canvas id="chart5"></canvas>
+        </div>
+        <div class="chart">
+          <canvas id="chart6"></canvas>
+        </div>
+      </div>
+    </main>
+    <script src="dashboard.js"></script>
+  </body>
+</html>
