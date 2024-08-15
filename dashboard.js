@@ -1,213 +1,67 @@
-// Toggle Navigation
-const navToggle = document.querySelector(".nav-toggle");
-const nav = document.querySelector(".nav");
+const sidebar = document.getElementById("sidebar");
+const mainContent = document.querySelector(".main-content");
+const toggleBtn = document.getElementById("toggle-btn");
+const closeBtn = document.getElementById("close-btn");
+const menuItems = document.querySelectorAll(".menu-item");
+const contentSection = document.getElementById("content-section");
+const themeToggle = document.getElementById("theme-toggle");
 
-navToggle.addEventListener("click", () => {
-  nav.classList.toggle("nav--visible");
+function toggleSidebar() {
+  sidebar.classList.toggle("active");
+  mainContent.classList.toggle("sidebar-active");
+  toggleBtn.classList.toggle("active");
+}
+
+toggleBtn.addEventListener("click", toggleSidebar);
+
+closeBtn.addEventListener("click", () => {
+  sidebar.classList.remove("active");
+  mainContent.classList.remove("sidebar-active");
+  toggleBtn.classList.remove("active");
 });
 
-// Close the nav menu when clicking outside of it
-document.addEventListener("click", (event) => {
-  if (!nav.contains(event.target) && !navToggle.contains(event.target)) {
-    nav.classList.remove("nav--visible");
+menuItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    const target = item.getAttribute("data-target");
+    menuItems.forEach((menu) => menu.classList.remove("active"));
+    item.classList.add("active");
+    updateContent(target);
+
+    if (window.innerWidth <= 768) {
+      sidebar.classList.remove("active");
+      mainContent.classList.remove("sidebar-active");
+      toggleBtn.classList.remove("active");
+    }
+  });
+});
+
+function updateContent(target) {
+  let content = "";
+  switch (target) {
+    case "home":
+      content = `<h2>Welcome to Git Plus</h2><p>Your collaborative coding journey starts here.</p>`;
+      break;
+    case "members":
+      content = `<h2>Members</h2><p>View and manage your team members here.</p>`;
+      break;
+    case "charts":
+      content = `<h2>Charts</h2><p>Visualize your project progress and statistics.</p>`;
+      break;
+    case "settings":
+      content = `<h2>Settings</h2><p>Customize your Git Plus experience.</p>`;
+      break;
+    case "exit":
+      content = `<h2>Exit</h2><p>Thank you for using Git Plus. See you soon!</p>`;
+      break;
+    default:
+      content = `<h2>Welcome to Git Plus</h2><p>Your collaborative coding journey starts here.</p>`;
   }
+  contentSection.innerHTML = content;
+}
+
+themeToggle.addEventListener("change", () => {
+  document.body.classList.toggle("dark-mode");
 });
 
-// Chart 1: Line Chart
-const ctx1 = document.getElementById("chart1").getContext("2d");
-const chart1 = new Chart(ctx1, {
-  type: "line",
-  data: {
-    labels: ["January", "February", "March", "April", "May", "June"],
-    datasets: [
-      {
-        label: "Sales",
-        data: [65, 59, 80, 81, 56, 55],
-        borderColor: "rgba(75, 192, 192, 1)",
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
-        borderWidth: 2,
-        fill: true,
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    scales: {
-      y: { beginAtZero: true },
-    },
-  },
-});
-
-// Chart 2: Bar Chart
-const ctx2 = document.getElementById("chart2").getContext("2d");
-const chart2 = new Chart(ctx2, {
-  type: "bar",
-  data: {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-    datasets: [
-      {
-        label: "# of Votes",
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-        ],
-        borderWidth: 2,
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    scales: {
-      y: { beginAtZero: true },
-    },
-  },
-});
-
-// Chart 3: Pie Chart
-const ctx3 = document.getElementById("chart3").getContext("2d");
-const chart3 = new Chart(ctx3, {
-  type: "pie",
-  data: {
-    labels: ["Red", "Blue", "Yellow"],
-    datasets: [
-      {
-        label: "Population",
-        data: [300, 50, 100],
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-        ],
-        borderWidth: 2,
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-    },
-  },
-});
-
-// Chart 4: Doughnut Chart
-const ctx4 = document.getElementById("chart4").getContext("2d");
-const chart4 = new Chart(ctx4, {
-  type: "doughnut",
-  data: {
-    labels: ["Red", "Blue", "Yellow"],
-    datasets: [
-      {
-        label: "Distribution",
-        data: [200, 100, 150],
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-        ],
-        borderWidth: 2,
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "right",
-      },
-    },
-  },
-});
-
-// Chart 5: Radar Chart
-const ctx5 = document.getElementById("chart5").getContext("2d");
-const chart5 = new Chart(ctx5, {
-  type: "radar",
-  data: {
-    labels: ["Running", "Swimming", "Eating", "Cycling", "Sleeping"],
-    datasets: [
-      {
-        label: "Activities",
-        data: [20, 10, 4, 2, 15],
-        backgroundColor: "rgba(255, 206, 86, 0.2)",
-        borderColor: "rgba(255, 206, 86, 1)",
-        borderWidth: 2,
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    scales: {
-      r: {
-        angleLines: {
-          display: true,
-        },
-        suggestedMin: 0,
-        suggestedMax: 20,
-      },
-    },
-  },
-});
-
-// Chart 6: Polar Area Chart
-const ctx6 = document.getElementById("chart6").getContext("2d");
-const chart6 = new Chart(ctx6, {
-  type: "polarArea",
-  data: {
-    labels: ["Red", "Green", "Yellow", "Grey", "Blue"],
-    datasets: [
-      {
-        label: "Colors",
-        data: [11, 16, 7, 3, 14],
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(201, 203, 207, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(201, 203, 207, 1)",
-          "rgba(54, 162, 235, 1)",
-        ],
-        borderWidth: 2,
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "right",
-      },
-    },
-  },
-});
+// Initialize with home content
+updateContent("home");
