@@ -17,7 +17,7 @@ document.getElementById("addBtn").addEventListener("click", function () {
   numberCell.innerHTML = '<input type="text" value="New Number">';
   schoolCell.innerHTML = '<input type="text" value="New School">';
   actionCell.innerHTML =
-    '<button class="edit-btn">Edit</button> <button class="delete-btn">Delete</button>';
+    '<button class="edit-btn">Save</button> <button class="delete-btn">Delete</button>';
 
   addRowActions(newRow);
 });
@@ -25,15 +25,19 @@ document.getElementById("addBtn").addEventListener("click", function () {
 function addRowActions(row) {
   row.querySelector(".edit-btn").addEventListener("click", function () {
     const cells = row.querySelectorAll("td:not(:last-child)");
-    cells.forEach((cell) => {
-      if (cell.querySelector("input")) {
-        cell.innerHTML = cell.querySelector("input").value;
-      } else {
-        const value = cell.innerText;
+    if (this.textContent === "Edit") {
+      cells.forEach((cell) => {
+        const value = cell.textContent;
         cell.innerHTML = `<input type="text" value="${value}">`;
-      }
-    });
-    this.textContent = this.textContent === "Edit" ? "Save" : "Edit";
+      });
+      this.textContent = "Save";
+    } else {
+      cells.forEach((cell) => {
+        const value = cell.querySelector("input").value;
+        cell.textContent = value;
+      });
+      this.textContent = "Edit";
+    }
   });
 
   row.querySelector(".delete-btn").addEventListener("click", function () {

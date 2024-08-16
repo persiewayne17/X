@@ -3,12 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Table with Actions</title>
+    <title>Data Management</title>
     <link rel="stylesheet" href="members.css" />
   </head>
   <body>
-    <h1>Data Management</h1>
     <div class="table-container">
+      <h1>Data Management</h1>
+      <button id="addBtn">Add</button>
       <table id="dataTable">
         <thead>
           <tr>
@@ -20,23 +21,9 @@
             <th>Action</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>Emma</td>
-            <td>22</td>
-            <td>Kasoa</td>
-            <td>0243854818</td>
-            <td>Regent</td>
-            <td>
-              <button class="edit-btn">Edit</button>
-              <button class="delete-btn">Delete</button>
-            </td>
-          </tr>
-        </tbody>
+        <tbody></tbody>
       </table>
     </div>
-    <button id="addBtn">Add</button>
-
     <script src="members.js"></script>
   </body>
 </html>
