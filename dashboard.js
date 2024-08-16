@@ -1,23 +1,27 @@
 const sidebar = document.getElementById("sidebar");
 const mainContent = document.querySelector(".main-content");
 const toggleBtn = document.getElementById("toggle-btn");
-const closeBtn = document.getElementById("close-btn");
 const menuItems = document.querySelectorAll(".menu-item");
 const contentSection = document.getElementById("content-section");
-const themeToggle = document.getElementById("theme-toggle");
 
 function toggleSidebar() {
   sidebar.classList.toggle("active");
-  mainContent.classList.toggle("sidebar-active");
-  toggleBtn.classList.toggle("active");
+  toggleBtn.innerHTML = sidebar.classList.contains("active")
+    ? '<i class="fas fa-times"></i>'
+    : '<i class="fas fa-bars"></i>';
 }
 
 toggleBtn.addEventListener("click", toggleSidebar);
 
-closeBtn.addEventListener("click", () => {
-  sidebar.classList.remove("active");
-  mainContent.classList.remove("sidebar-active");
-  toggleBtn.classList.remove("active");
+document.addEventListener("click", (event) => {
+  if (
+    !sidebar.contains(event.target) &&
+    !toggleBtn.contains(event.target) &&
+    window.innerWidth <= 768
+  ) {
+    sidebar.classList.remove("active");
+    toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+  }
 });
 
 menuItems.forEach((item) => {
@@ -25,12 +29,14 @@ menuItems.forEach((item) => {
     const target = item.getAttribute("data-target");
     menuItems.forEach((menu) => menu.classList.remove("active"));
     item.classList.add("active");
-    updateContent(target);
-
+    if (target === "charts") {
+      loadContent("charts.html");
+    } else {
+      updateContent(target);
+    }
     if (window.innerWidth <= 768) {
       sidebar.classList.remove("active");
-      mainContent.classList.remove("sidebar-active");
-      toggleBtn.classList.remove("active");
+      toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
     }
   });
 });
@@ -39,29 +45,50 @@ function updateContent(target) {
   let content = "";
   switch (target) {
     case "home":
-      content = `<h2>Welcome to Git Plus</h2><p>Your collaborative coding journey starts here.</p>`;
+      content = `<h2>Welcome to Control Panel</h2><p>Your collaborative coding journey starts here.</p>`;
       break;
     case "members":
       content = `<h2>Members</h2><p>View and manage your team members here.</p>`;
       break;
-    case "charts":
-      content = `<h2>Charts</h2><p>Visualize your project progress and statistics.</p>`;
-      break;
     case "settings":
-      content = `<h2>Settings</h2><p>Customize your Git Plus experience.</p>`;
+      content = `<h2>Settings</h2><p>Customize your Control Panel experience.</p>`;
       break;
     case "exit":
-      content = `<h2>Exit</h2><p>Thank you for using Git Plus. See you soon!</p>`;
+      content = `<h2>Exit</h2><p>Thank you for using Control Panel. See you soon!</p>`;
       break;
     default:
-      content = `<h2>Welcome to Git Plus</h2><p>Your collaborative coding journey starts here.</p>`;
+      content = `<h2>Welcome to Control Panel</h2><p>Your collaborative coding journey starts here.</p>`;
   }
   contentSection.innerHTML = content;
 }
 
-themeToggle.addEventListener("change", () => {
-  document.body.classList.toggle("dark-mode");
-});
+function loadContent(url) {
+  fetch(url)
+    .then((response) => response.text())
+    .then((html) => {
+      contentSection.innerHTML = html;
+    })
+    .catch((error) => {
+      console.error("Error loading content:", error);
+      contentSection.innerHTML =
+        "<p>Error loading content. Please try again.</p>";
+    });
+}
 
-// Initialize with home content
+// Adjust sidebar visibility on window resize
+window.addEventListener("resize", adjustSidebar);
+
+function adjustSidebar() {
+  if (window.innerWidth > 768) {
+    sidebar.classList.add("active");
+    toggleBtn.style.display = "none";
+  } else {
+    sidebar.classList.remove("active");
+    toggleBtn.style.display = "block";
+    toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+  }
+}
+
+// Initial sidebar state and content
+adjustSidebar();
 updateContent("home");
