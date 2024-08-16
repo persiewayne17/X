@@ -37,6 +37,11 @@ body {
   height: 100vh;
   z-index: 1000;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  transform: translateX(-100%); /* Initially hide the sidebar */
+}
+
+.sidebar.active {
+  transform: translateX(0); /* Show the sidebar when active */
 }
 
 .sidebar-header {
@@ -99,17 +104,18 @@ body {
   margin-top: 20px;
 }
 
+/* Media queries for smaller devices */
 @media (max-width: 768px) {
   .sidebar {
-    transform: translateX(-100%);
+    transform: translateX(-100%); /* Initially hide sidebar on small screens */
   }
 
   .sidebar.active {
-    transform: translateX(0);
+    transform: translateX(0); /* Show sidebar when active on small screens */
   }
 
   .main-content {
-    margin-left: 0;
+    margin-left: 0; /* No margin for main content on small screens */
   }
 
   .mobile-header {
@@ -119,5 +125,9 @@ body {
     margin-bottom: 20px;
     padding: 10px 0;
     border-bottom: 1px solid var(--hover-color);
+  }
+
+  .toggle-btn {
+    display: block; /* Show the toggle button on small screens */
   }
 }
