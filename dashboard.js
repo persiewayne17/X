@@ -1,4 +1,4 @@
-// Get references to necessary elements
+// Getting elements from the HTML file
 const sidebar = document.getElementById("sidebar");
 const toggleBtn = document.getElementById("toggle-btn");
 const menuItems = document.querySelectorAll(".menu-item");
@@ -25,10 +25,12 @@ document.addEventListener("click", (event) => {
 
 // Handle exit button click
 const exitBtn = document.querySelector(".menu-item[data-target='exit']");
-exitBtn.addEventListener("click", () => {
-  // Redirect to the login page
-  window.location.href = "index.html";
-});
+if (exitBtn) {
+  exitBtn.addEventListener("click", () => {
+    // Redirect to the login page
+    window.location.href = "index.html";
+  });
+}
 
 // Function to handle menu item clicks and load content
 menuItems.forEach((item) => {
@@ -36,6 +38,7 @@ menuItems.forEach((item) => {
     const target = item.getAttribute("data-target");
     menuItems.forEach((menu) => menu.classList.remove("active")); // Remove 'active' class from all menu items
     item.classList.add("active"); // Add 'active' class to the clicked item
+
     if (target === "charts") {
       loadContent("charts.html"); // Load charts.html content
     } else if (target === "members") {
@@ -43,8 +46,10 @@ menuItems.forEach((item) => {
     } else {
       updateContent(target); // Load other sections
     }
+
+    // Hide the sidebar on small screens after menu item click
     if (window.innerWidth <= 768) {
-      sidebar.classList.remove("active"); // Hide the sidebar on small screens after menu item click
+      sidebar.classList.remove("active");
     }
   });
 });
@@ -59,6 +64,9 @@ function updateContent(target) {
     case "settings":
       content = `<h2>Settings</h2><p>Customize your experience.</p>`;
       break;
+    case "chart":
+      content = `<h2>Charts</h2><p>Charts</p>`;
+      break;
     default:
       content = `<h2>Welcome to GIT PLUS</h2>`;
   }
@@ -70,7 +78,7 @@ function loadContent(url) {
   fetch(url)
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Network response was not ok " + response.statusText);
+        throw new Error("Network response was not ok: " + response.statusText);
       }
       return response.text();
     })
@@ -81,8 +89,6 @@ function loadContent(url) {
       let script;
       if (url === "members.html") {
         script = "members.js";
-      } else if (url === "charts.html") {
-        script = "charts.js";
       }
 
       if (script) {
@@ -116,7 +122,8 @@ window.addEventListener("resize", adjustSidebar);
 
 function adjustSidebar() {
   if (window.innerWidth > 768) {
-    sidebar.classList.remove("active"); // Show sidebar by default on larger screens
+    sidebar.classList.add("active"); // Show sidebar by default on larger screens
+    toggleBtn.style.display = "none"; // Hide toggle button on larger screens
   } else {
     sidebar.classList.remove("active"); // Hide sidebar on smaller screens by default
     toggleBtn.style.display = "block"; // Ensure toggle button is visible on smaller screens
