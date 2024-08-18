@@ -11,11 +11,11 @@ document.getElementById("addBtn").addEventListener("click", function () {
   const schoolCell = newRow.insertCell(4);
   const actionCell = newRow.insertCell(5);
 
-  nameCell.innerHTML = '<input type="text" value="New Name">';
-  ageCell.innerHTML = '<input type="text" value="New Age">';
-  locationCell.innerHTML = '<input type="text" value="New Location">';
-  numberCell.innerHTML = '<input type="text" value="New Number">';
-  schoolCell.innerHTML = '<input type="text" value="New School">';
+  nameCell.innerHTML = '<input type="text" placeholder = "Name">';
+  ageCell.innerHTML = '<input type="text" placeholder = "Age">';
+  locationCell.innerHTML = '<input type="text" placeholder = "Location">';
+  numberCell.innerHTML = '<input type="text" placeholder = "Number">';
+  schoolCell.innerHTML = '<input type="text" placeholder = "School">';
   actionCell.innerHTML =
     '<button class="edit-btn">Save</button> <button class="delete-btn">Delete</button>';
 
