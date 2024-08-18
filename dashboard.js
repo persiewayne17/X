@@ -1,213 +1,135 @@
-// Toggle Navigation
-const navToggle = document.querySelector(".nav-toggle");
-const nav = document.querySelector(".nav");
+// Getting elements from the HTML file
+const sidebar = document.getElementById("sidebar");
+const toggleBtn = document.getElementById("toggle-btn");
+const menuItems = document.querySelectorAll(".menu-item");
+const contentSection = document.getElementById("content-section");
 
-navToggle.addEventListener("click", () => {
-  nav.classList.toggle("nav--visible");
-});
+// Function to toggle sidebar visibility
+function toggleSidebar() {
+  sidebar.classList.toggle("active"); // Toggle the 'active' class on the sidebar
+}
 
-// Close the nav menu when clicking outside of it
+// Event listener for the custom toggle button
+toggleBtn.addEventListener("click", toggleSidebar);
+
+// Close the sidebar if clicked outside of it on smaller screens
 document.addEventListener("click", (event) => {
-  if (!nav.contains(event.target) && !navToggle.contains(event.target)) {
-    nav.classList.remove("nav--visible");
+  if (
+    !sidebar.contains(event.target) && // If click is outside the sidebar
+    !toggleBtn.contains(event.target) && // If click is outside the toggle button
+    window.innerWidth <= 768 // Only apply on screens smaller than 768px
+  ) {
+    sidebar.classList.remove("active"); // Hide the sidebar
   }
 });
 
-// Chart 1: Line Chart
-const ctx1 = document.getElementById("chart1").getContext("2d");
-const chart1 = new Chart(ctx1, {
-  type: "line",
-  data: {
-    labels: ["January", "February", "March", "April", "May", "June"],
-    datasets: [
-      {
-        label: "Sales",
-        data: [65, 59, 80, 81, 56, 55],
-        borderColor: "rgba(75, 192, 192, 1)",
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
-        borderWidth: 2,
-        fill: true,
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    scales: {
-      y: { beginAtZero: true },
-    },
-  },
+// Handle exit button click
+const exitBtn = document.querySelector(".menu-item[data-target='exit']");
+if (exitBtn) {
+  exitBtn.addEventListener("click", () => {
+    // Redirect to the login page
+    window.location.href = "index.html";
+  });
+}
+
+// Function to handle menu item clicks and load content
+menuItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    const target = item.getAttribute("data-target");
+    menuItems.forEach((menu) => menu.classList.remove("active")); // Remove 'active' class from all menu items
+    item.classList.add("active"); // Add 'active' class to the clicked item
+
+    if (target === "charts") {
+      loadContent("charts.html"); // Load charts.html content
+    } else if (target === "members") {
+      loadContent("members.html"); // Load members.html content
+    } else {
+      updateContent(target); // Load other sections
+    }
+
+    // Hide the sidebar on small screens after menu item click
+    if (window.innerWidth <= 768) {
+      sidebar.classList.remove("active");
+    }
+  });
 });
 
-// Chart 2: Bar Chart
-const ctx2 = document.getElementById("chart2").getContext("2d");
-const chart2 = new Chart(ctx2, {
-  type: "bar",
-  data: {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-    datasets: [
-      {
-        label: "# of Votes",
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-        ],
-        borderWidth: 2,
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    scales: {
-      y: { beginAtZero: true },
-    },
-  },
-});
+// Function to update the content section with static content
+function updateContent(target) {
+  let content = "";
+  switch (target) {
+    case "home":
+      content = `<h2>Home</h2><p>Welcome Home</p>`;
+      break;
+    case "settings":
+      content = `<h2>Settings</h2><p>Customize your experience.</p>`;
+      break;
+    case "chart":
+      content = `<h2>Charts</h2><p>Charts</p>`;
+      break;
+    default:
+      content = `<h2>Welcome to GIT PLUS</h2>`;
+  }
+  contentSection.innerHTML = content;
+}
 
-// Chart 3: Pie Chart
-const ctx3 = document.getElementById("chart3").getContext("2d");
-const chart3 = new Chart(ctx3, {
-  type: "pie",
-  data: {
-    labels: ["Red", "Blue", "Yellow"],
-    datasets: [
-      {
-        label: "Population",
-        data: [300, 50, 100],
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-        ],
-        borderWidth: 2,
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-    },
-  },
-});
+// Function to load external HTML content (e.g., charts, members)
+function loadContent(url) {
+  fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok: " + response.statusText);
+      }
+      return response.text();
+    })
+    .then((html) => {
+      contentSection.innerHTML = html;
 
-// Chart 4: Doughnut Chart
-const ctx4 = document.getElementById("chart4").getContext("2d");
-const chart4 = new Chart(ctx4, {
-  type: "doughnut",
-  data: {
-    labels: ["Red", "Blue", "Yellow"],
-    datasets: [
-      {
-        label: "Distribution",
-        data: [200, 100, 150],
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-        ],
-        borderWidth: 2,
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "right",
-      },
-    },
-  },
-});
+      // Dynamically load the corresponding JavaScript file after content is loaded
+      let script;
+      if (url === "members.html") {
+        script = "members.js";
+      }
 
-// Chart 5: Radar Chart
-const ctx5 = document.getElementById("chart5").getContext("2d");
-const chart5 = new Chart(ctx5, {
-  type: "radar",
-  data: {
-    labels: ["Running", "Swimming", "Eating", "Cycling", "Sleeping"],
-    datasets: [
-      {
-        label: "Activities",
-        data: [20, 10, 4, 2, 15],
-        backgroundColor: "rgba(255, 206, 86, 0.2)",
-        borderColor: "rgba(255, 206, 86, 1)",
-        borderWidth: 2,
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    scales: {
-      r: {
-        angleLines: {
-          display: true,
-        },
-        suggestedMin: 0,
-        suggestedMax: 20,
-      },
-    },
-  },
-});
+      if (script) {
+        loadScript(script);
+      }
+    })
+    .catch((error) => {
+      console.error("Error loading content:", error);
+      contentSection.innerHTML =
+        "<p>Error loading content. Please try again.</p>";
+    });
+}
 
-// Chart 6: Polar Area Chart
-const ctx6 = document.getElementById("chart6").getContext("2d");
-const chart6 = new Chart(ctx6, {
-  type: "polarArea",
-  data: {
-    labels: ["Red", "Green", "Yellow", "Grey", "Blue"],
-    datasets: [
-      {
-        label: "Colors",
-        data: [11, 16, 7, 3, 14],
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(201, 203, 207, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(201, 203, 207, 1)",
-          "rgba(54, 162, 235, 1)",
-        ],
-        borderWidth: 2,
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "right",
-      },
-    },
-  },
-});
+// Function to dynamically load a script with error handling
+function loadScript(src) {
+  const script = document.createElement("script");
+  script.src = src;
+  script.onload = function () {
+    console.log(src + " loaded successfully.");
+  };
+  script.onerror = function () {
+    console.error("Failed to load script " + src);
+    contentSection.innerHTML +=
+      "<p>Failed to load the script. Please try again later.</p>";
+  };
+  document.body.appendChild(script);
+}
+
+// Adjust the sidebar visibility based on screen size
+window.addEventListener("resize", adjustSidebar);
+
+function adjustSidebar() {
+  if (window.innerWidth > 768) {
+    sidebar.classList.add("active"); // Show sidebar by default on larger screens
+    toggleBtn.style.display = "none"; // Hide toggle button on larger screens
+  } else {
+    sidebar.classList.remove("active"); // Hide sidebar on smaller screens by default
+    toggleBtn.style.display = "block"; // Ensure toggle button is visible on smaller screens
+  }
+}
+
+// Initial setup: adjust sidebar visibility and load default content
+adjustSidebar();
+updateContent("home"); // Load the home content by default

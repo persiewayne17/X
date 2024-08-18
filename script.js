@@ -114,7 +114,6 @@ document.addEventListener("DOMContentLoaded", function () {
       errorMessage.style.display = "block";
     }
   });
-
   // Hide error message when the user starts typing
   usernameInput.addEventListener("input", function () {
     errorMessage.style.display = "none";

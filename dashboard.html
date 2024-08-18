@@ -4,56 +4,55 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="dashboard.css" />
+    <script defer src="dashboard.js"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
     <title>Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
-    <header>
-      <div class="header-content">
-        <div class="logo">
-          <img src="images/logo.png" alt="Logo" class="logo" />
+    <div class="container">
+      <!-- Sidebar -->
+      <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <h2></h2>
+          <!-- Removed 'Control Panel' Title -->
         </div>
-        <button class="nav-toggle" aria-label="Toggle navigation">
-          <span class="hamburger"></span>
-        </button>
-      </div>
-      <nav class="nav">
-        <ul class="nav__list">
-          <li class="nav__item"><a href="#" class="nav__link">About Us</a></li>
-          <li class="nav__item"><a href="#" class="nav__link">Services</a></li>
-          <li class="nav__item">
-            <a href="#" class="nav__link">Contact Us</a>
+        <ul class="sidebar-menu">
+          <li class="menu-item active" data-target="home">
+            <i class="fas fa-home"></i> Home
           </li>
-          <li class="nav__item">
-            <a href="index.html" class="nav__link">Log-out</a>
+          <li class="menu-item" data-target="members">
+            <i class="fas fa-users"></i> Members
+          </li>
+          <li class="menu-item" data-target="charts">
+            <i class="fas fa-chart-bar"></i> Charts
+          </li>
+          <li class="menu-item" data-target="settings">
+            <i class="fas fa-cog"></i> Settings
+          </li>
+          <li class="menu-item" data-target="exit">
+            <i class="fas fa-sign-out-alt"></i> Exit
           </li>
         </ul>
-      </nav>
-    </header>
+      </div>
 
-    <main>
-      <h1>Dashboard</h1>
-      <div class="chart-container">
-        <div class="chart">
-          <canvas id="chart1"></canvas>
+      <!-- Main Content Area -->
+      <div class="main-content">
+        <!-- Mobile Header with Toggle Button -->
+        <div class="mobile-header">
+          <!-- Custom Toggle Button -->
+          <span id="toggle-btn" class="toggle-button">&#9776;</span>
+          <h1></h1>
+          <!-- Removed 'Control Panel' Title -->
         </div>
-        <div class="chart">
-          <canvas id="chart2"></canvas>
-        </div>
-        <div class="chart">
-          <canvas id="chart3"></canvas>
-        </div>
-        <div class="chart">
-          <canvas id="chart4"></canvas>
-        </div>
-        <div class="chart">
-          <canvas id="chart5"></canvas>
-        </div>
-        <div class="chart">
-          <canvas id="chart6"></canvas>
+        <div class="content-section" id="content-section">
+          <!-- Default content will load here -->
+          <h2>Welcome to the Dashboard</h2>
+          <p>Your collaborative coding journey starts here.</p>
         </div>
       </div>
-    </main>
-    <script src="dashboard.js"></script>
+    </div>
   </body>
 </html>
