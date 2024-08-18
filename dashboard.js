@@ -23,6 +23,13 @@ document.addEventListener("click", (event) => {
   }
 });
 
+// Handle exit button click
+const exitBtn = document.querySelector(".menu-item[data-target='exit']");
+exitBtn.addEventListener("click", () => {
+  // Redirect to the login page
+  window.location.href = "index.html";
+});
+
 // Function to handle menu item clicks and load content
 menuItems.forEach((item) => {
   item.addEventListener("click", () => {
@@ -47,19 +54,13 @@ function updateContent(target) {
   let content = "";
   switch (target) {
     case "home":
-      content = `<h2>Home</h2><p>Your collaborative coding journey starts here.</p>`;
-      break;
-    case "members":
-      content = `<h2>Members</h2><p>View and manage your team members here.</p>`;
+      content = `<h2>Home</h2><p>Welcome Home</p>`;
       break;
     case "settings":
-      content = `<h2>Settings</h2><p>Customize your Dashboard experience.</p>`;
-      break;
-    case "exit":
-      content = `<h2>Exit</h2><p>Thank you for using the Dashboard. See you soon!</p>`;
+      content = `<h2>Settings</h2><p>Customize your experience.</p>`;
       break;
     default:
-      content = `<h2>Welcome to the Dashboard</h2><p>Your collaborative coding journey starts here.</p>`;
+      content = `<h2>Welcome to GIT PLUS</h2>`;
   }
   contentSection.innerHTML = content;
 }
@@ -67,19 +68,25 @@ function updateContent(target) {
 // Function to load external HTML content (e.g., charts, members)
 function loadContent(url) {
   fetch(url)
-    .then((response) => response.text())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok " + response.statusText);
+      }
+      return response.text();
+    })
     .then((html) => {
       contentSection.innerHTML = html;
 
       // Dynamically load the corresponding JavaScript file after content is loaded
+      let script;
       if (url === "members.html") {
-        const script = document.createElement("script");
-        script.src = "members.js";
-        document.body.appendChild(script);
+        script = "members.js";
       } else if (url === "charts.html") {
-        const script = document.createElement("script");
-        script.src = "charts.js";
-        document.body.appendChild(script);
+        script = "charts.js";
+      }
+
+      if (script) {
+        loadScript(script);
       }
     })
     .catch((error) => {
@@ -87,6 +94,21 @@ function loadContent(url) {
       contentSection.innerHTML =
         "<p>Error loading content. Please try again.</p>";
     });
+}
+
+// Function to dynamically load a script with error handling
+function loadScript(src) {
+  const script = document.createElement("script");
+  script.src = src;
+  script.onload = function () {
+    console.log(src + " loaded successfully.");
+  };
+  script.onerror = function () {
+    console.error("Failed to load script " + src);
+    contentSection.innerHTML +=
+      "<p>Failed to load the script. Please try again later.</p>";
+  };
+  document.body.appendChild(script);
 }
 
 // Adjust the sidebar visibility based on screen size
