@@ -39,10 +39,10 @@ menuItems.forEach((item) => {
     menuItems.forEach((menu) => menu.classList.remove("active")); // Remove 'active' class from all menu items
     item.classList.add("active"); // Add 'active' class to the clicked item
 
-    if (target === "charts") {
-      loadContent("charts.html"); // Load charts.html content
-    } else if (target === "members") {
+    if (target === "members") {
       loadContent("members.html"); // Load members.html content
+    } else if (target === "home") {
+      loadContent("home.html"); // load the home.html
     } else {
       updateContent(target); // Load other sections
     }
@@ -64,11 +64,11 @@ function updateContent(target) {
     case "settings":
       content = `<h2>Settings</h2><p>Customize your experience.</p>`;
       break;
-    case "chart":
-      content = `<h2>Charts</h2><p>Charts</p>`;
+    case "charts":
+      content = `<h2>Charts</h2><p>Welcome to the charts board</P>`;
       break;
     default:
-      content = `<h2>Welcome to GIT PLUS</h2>`;
+      content = none;
   }
   contentSection.innerHTML = content;
 }
