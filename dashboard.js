@@ -59,7 +59,7 @@ function updateContent(target) {
   let content = "";
   switch (target) {
     case "home":
-      content = `<h2>Home</h2><p>Welcome Home</p>`;
+      loadContent("home.html");
       break;
     case "settings":
       content = `<h2>Settings</h2><p>Customize your experience.</p>`;
